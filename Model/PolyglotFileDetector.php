@@ -139,7 +139,7 @@ class PolyglotFileDetector
                 $contextFile = $filename ? sprintf(' in file %s', $filename) : '';
                 throw new InputException(
                     __(
-                        'Uploaded file contains executable code and is not permitted for security reasons.%1',
+                        'Uploaded file contains executable code and is not permitted for security reasons%s',
                         $contextFile
                     )
                 );
@@ -152,7 +152,7 @@ class PolyglotFileDetector
                 $contextFile = $filename ? sprintf(' in file %s', $filename) : '';
                 throw new InputException(
                     __(
-                        'Uploaded file matches known malicious payload signature.%1',
+                        'Uploaded file matches known malicious payload signature%s',
                         $contextFile
                     )
                 );

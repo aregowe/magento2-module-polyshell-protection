@@ -41,6 +41,21 @@ class PolyglotFileDetectorTest extends TestCase
     }
 
     /**
+     * Test that executable-code detection includes filename context cleanly.
+     */
+    public function testPolyglotGifWithPhpIncludesFilenameInMessage(): void
+    {
+        $polyglotPayload = "GIF89a;<?php system(\$_GET['cmd']); ?>";
+
+        $this->expectException(InputException::class);
+        $this->expectExceptionMessage(
+            'Uploaded file contains executable code and is not permitted for security reasons in file shell.gif'
+        );
+
+        $this->detector->assertNotPolyglot($polyglotPayload, 'shell.gif');
+    }
+
+    /**
      * Test that known beacon pattern is detected.
      * Payload uses the beacon value without PHP tags so that the
      * ATTACK_SIGNATURES check fires before PHP_CODE_PATTERNS.
