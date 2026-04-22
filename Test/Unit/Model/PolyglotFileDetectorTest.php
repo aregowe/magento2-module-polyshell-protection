@@ -32,8 +32,14 @@ class PolyglotFileDetectorTest extends TestCase
      */
     public function testPolyglotGifWithPhpFails(): void
     {
-        $polyglotPayload = "GIF89a;<?php echo 409723*20; if(md5(\$_COOKIE[\"d\"])==\"a17028468cb2a870d460676d6d6da3ad63706778e3\"){eval(base64_decode(\$_REQUEST[\"id\"]));} ?>";
-        
+        // Payload is split via concatenation so external malware scanners
+        // (e.g. Sansec eComscan) do not flag this test fixture as a real
+        // backdoor. Runtime semantics of the assembled payload are unchanged.
+        // See issue #12.
+        $polyglotPayload = 'GIF89a;<' . '?' . 'php echo 409723*20; if(md5('
+            . '$' . '_COOKIE["d"])=="a17028468cb2a870d460676d6d6da3ad63706778e3")'
+            . '{' . 'eval' . '(' . 'base64_decode' . '($' . '_REQUEST["id"]));} ?>';
+
         $this->expectException(InputException::class);
         $this->expectExceptionMessage('Uploaded file contains executable code');
         
@@ -45,7 +51,8 @@ class PolyglotFileDetectorTest extends TestCase
      */
     public function testPolyglotGifWithPhpReturnsGenericTranslatableMessage(): void
     {
-        $polyglotPayload = "GIF89a;<?php system(\$_GET['cmd']); ?>";
+        // Split to avoid malware-scanner false positives. See issue #12.
+        $polyglotPayload = 'GIF89a;<' . '?' . 'php ' . 'system' . '(' . '$' . "_GET['cmd']); ?>";
 
         $this->expectException(InputException::class);
         $this->expectExceptionMessage(
@@ -88,8 +95,9 @@ class PolyglotFileDetectorTest extends TestCase
      */
     public function testBase64DecodePatternDetected(): void
     {
-        $payload = "GIF87a" . "eval(base64_decode(\$_REQUEST['cmd']))";
-        
+        // Split to avoid malware-scanner false positives. See issue #12.
+        $payload = 'GIF87a' . 'eval' . '(' . 'base64_decode' . '($' . "_REQUEST['cmd']))";
+
         $this->expectException(InputException::class);
         $this->expectExceptionMessage('Uploaded file contains executable code');
         
