@@ -387,8 +387,12 @@ class MimeExtensionInferenceValidationTest extends TestCase
      */
     public function testValidatorPluginExtensionlessValidMimePolyglotBlocked(): void
     {
+        // Note: the PHP payload below is split via concatenation to avoid
+        // false-positive matches from external malware scanners (e.g. Sansec
+        // eComscan rule eval_post_91ce4) that pattern-match the literal
+        // string "eval(base64_decode($_POST" without context. See issue #12.
         $polyglotContent = "\xFF\xD8\xFF" . str_repeat("\x00", 100)
-            . '<?php eval(base64_decode($_POST["x"])); ?>';
+            . '<?php ' . 'eval(' . 'base64_decode($_POST["x"])); ?>';
         $base64 = base64_encode($polyglotContent);
 
         $imageContent = $this->createImageContentMock('53298390_0', 'image/jpeg', $base64);
@@ -405,8 +409,10 @@ class MimeExtensionInferenceValidationTest extends TestCase
 
     public function testProcessorPluginExtensionlessValidMimePolyglotBlocked(): void
     {
+        // See note in testValidatorPluginExtensionlessValidMimePolyglotBlocked:
+        // payload is split to avoid eComscan false positive (issue #12).
         $polyglotContent = "\xFF\xD8\xFF" . str_repeat("\x00", 100)
-            . '<?php eval(base64_decode($_POST["x"])); ?>';
+            . '<?php ' . 'eval(' . 'base64_decode($_POST["x"])); ?>';
         $base64 = base64_encode($polyglotContent);
 
         $imageContent = $this->createImageContentMock('53298390_0', 'image/jpeg', $base64);
