@@ -393,8 +393,9 @@ class MimeExtensionInferenceValidationTest extends TestCase
     {
         // Note: the PHP payload below is split via concatenation to avoid
         // false-positive matches from external malware scanners (e.g. Sansec
-        // eComscan rule eval_post_91ce4) that pattern-match the literal
-        // string "eval(base64_decode($_POST" without context. See issue #12.
+        // eComscan) that pattern-match common webshell signatures without
+        // context. The literal signature must not appear anywhere in this
+        // file -- including comments. See issue #12.
         $polyglotContent = "\xFF\xD8\xFF" . str_repeat("\x00", 100)
             . '<' . '?' . 'php ' . 'eval' . '(' . 'base64_decode'
             . '($' . '_POST["x"])); ?>';

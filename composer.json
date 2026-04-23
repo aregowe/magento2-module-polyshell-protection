@@ -1,6 +1,6 @@
 {
     "name": "aregowe/magento2-module-polyshell-protection",
-    "version": "1.3.3",
+    "version": "1.3.4",
     "description": "Comprehensive defense-in-depth module that closes the PolyShell unrestricted file upload vulnerability (APSB25-94) in Adobe Commerce and Magento Open Source.",
     "require": {
         "php": "^8.1",
