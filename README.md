@@ -249,6 +249,7 @@ Log context values are sanitized by `SecurityLogSanitizer` to prevent log inject
 ## Compatibility
 
 - **Adobe Commerce**: 2.4.8-p4 (tested), expected compatible with 2.4.7+
+- **Not installable on 2.4.9 and newer** (`magento/framework` >= 103.0.9). Adobe fixed PolyShell in core 2.4.9: `CustomOptionProcessor` only processes `file_info` for options that really are of type `file`, and `ImageContentProcessor` rejects protected extensions. Composer will refuse to install this module on those versions; remove it when upgrading.
 - **PHP**: 8.4 (tested). All reflection uses `::class` to access properties declared on parent classes correctly in PHP 8.4's stricter reflection model.
 - **MarkShust_PolyshellPatch**: Integrates and replaces. The `composer.json` `replace` directive handles automatic migration.
 - **Hyva Theme**: No frontend dependencies. This module operates entirely on backend API and framework interception points.
