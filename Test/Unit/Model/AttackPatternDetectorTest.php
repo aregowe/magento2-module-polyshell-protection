@@ -6,6 +6,7 @@ namespace Aregowe\PolyShellProtection\Test\Unit\Model;
 
 use Magento\Framework\Exception\InputException;
 use Aregowe\PolyShellProtection\Model\AttackPatternDetector;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class AttackPatternDetectorTest extends TestCase
@@ -40,6 +41,7 @@ class AttackPatternDetectorTest extends TestCase
      *
      * @dataProvider knownAttackFilenamesProvider
      */
+    #[DataProvider('knownAttackFilenamesProvider')]
     public function testKnownAttackFilenamesRejected(string $filename): void
     {
         $this->expectException(InputException::class);
@@ -89,6 +91,7 @@ class AttackPatternDetectorTest extends TestCase
      *
      * @dataProvider exploitIndicatorProvider
      */
+    #[DataProvider('exploitIndicatorProvider')]
     public function testExploitIndicatorsRejected(string $filename): void
     {
         $this->expectException(InputException::class);

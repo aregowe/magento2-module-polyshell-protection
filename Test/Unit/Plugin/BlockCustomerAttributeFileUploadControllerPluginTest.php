@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Aregowe\PolyShellProtection\Test\Unit\Plugin;
 
-use Magento\CustomerCustomAttributes\Controller\AbstractUploadFile;
+use Magento\Framework\App\ActionInterface;
 use Magento\Framework\Controller\Result\Json as JsonResult;
 use Magento\Framework\Controller\ResultFactory;
 use PHPUnit\Framework\TestCase;
@@ -14,16 +14,6 @@ use Aregowe\PolyShellProtection\Plugin\BlockCustomerAttributeFileUploadControlle
 
 class BlockCustomerAttributeFileUploadControllerPluginTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        if (!class_exists(AbstractUploadFile::class)) {
-            $this->markTestSkipped(
-                'Magento\CustomerCustomAttributes\Controller\AbstractUploadFile is not available '
-                . '(requires Adobe Commerce; not present in Magento Open Source).'
-            );
-        }
-    }
-
     public function testBlocksAllUploadsWithJsonErrorResponse(): void
     {
         $jsonResult = $this->createMock(JsonResult::class);
@@ -52,7 +42,7 @@ class BlockCustomerAttributeFileUploadControllerPluginTest extends TestCase
             $sanitizer
         );
 
-        $subject = $this->createMock(AbstractUploadFile::class);
+        $subject = $this->createMock(ActionInterface::class);
         $proceed = function () {
             $this->fail('Proceed should not be called — plugin must block');
         };

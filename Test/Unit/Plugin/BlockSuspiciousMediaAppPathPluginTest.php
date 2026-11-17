@@ -67,7 +67,6 @@ class BlockSuspiciousMediaAppPathPluginTest extends TestCase
             $reflection = new \ReflectionClass(Media::class);
             if ($reflection->hasProperty('relativeFileName')) {
                 $prop = $reflection->getProperty('relativeFileName');
-                $prop->setAccessible(true);
                 $prop->setValue($media, 'custom_options/quote/shell.php');
             }
         } catch (\ReflectionException $e) {

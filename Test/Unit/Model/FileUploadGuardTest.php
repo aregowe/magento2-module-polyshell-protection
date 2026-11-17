@@ -6,6 +6,7 @@ namespace Aregowe\PolyShellProtection\Test\Unit\Model;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Exception\InputException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Aregowe\PolyShellProtection\Model\AttackPatternDetector;
 use Aregowe\PolyShellProtection\Model\FileUploadGuard;
@@ -96,6 +97,7 @@ class FileUploadGuardTest extends TestCase
     /**
      * @dataProvider validMimeInferenceProvider
      */
+    #[DataProvider('validMimeInferenceProvider')]
     public function testInferExtensionFromMimeTypeReturnsExpected(
         string $mimeType,
         string $expectedExtension
@@ -128,6 +130,7 @@ class FileUploadGuardTest extends TestCase
     /**
      * @dataProvider invalidMimeInferenceProvider
      */
+    #[DataProvider('invalidMimeInferenceProvider')]
     public function testInferExtensionFromMimeTypeReturnsNull(?string $mimeType): void
     {
         $this->assertNull(FileUploadGuard::inferExtensionFromMimeType($mimeType));
@@ -458,6 +461,7 @@ class FileUploadGuardTest extends TestCase
     /**
      * @dataProvider newlyBlockedExtensionsProvider
      */
+    #[DataProvider('newlyBlockedExtensionsProvider')]
     public function testBlocksNewlyAddedDangerousExtensions(string $filename): void
     {
         $this->expectException(InputException::class);
@@ -481,6 +485,7 @@ class FileUploadGuardTest extends TestCase
     /**
      * @dataProvider doubleExtensionBypassProvider
      */
+    #[DataProvider('doubleExtensionBypassProvider')]
     public function testBlocksDoubleExtensionBypassWithNewExtensions(string $filename): void
     {
         $this->expectException(InputException::class);
