@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Aregowe\PolyShellProtection\Plugin;
 
-use Magento\CustomerCustomAttributes\Controller\AbstractUploadFile;
+use Magento\Framework\App\ActionInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\ResultInterface;
 use Aregowe\PolyShellProtection\Model\SecurityLogSanitizer;
@@ -43,11 +43,11 @@ class BlockCustomerAttributeFileUploadControllerPlugin
      * Returns a JSON error response matching the controller's expected format
      * so the frontend handles it gracefully.
      *
-     * @param AbstractUploadFile $subject
+     * @param ActionInterface $subject
      * @param callable $proceed
      * @return ResultInterface
      */
-    public function aroundExecute(AbstractUploadFile $subject, callable $proceed): ResultInterface
+    public function aroundExecute(ActionInterface $subject, callable $proceed): ResultInterface
     {
         $controllerClass = get_class($subject);
 

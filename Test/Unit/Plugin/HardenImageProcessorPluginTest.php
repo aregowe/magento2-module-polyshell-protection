@@ -7,6 +7,7 @@ namespace Aregowe\PolyShellProtection\Test\Unit\Plugin;
 use Magento\Framework\Api\Data\ImageContentInterface;
 use Magento\Framework\Api\ImageProcessor;
 use Magento\Framework\Exception\InputException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Aregowe\PolyShellProtection\Logger\Logger;
 use Aregowe\PolyShellProtection\Model\FileUploadGuard;
@@ -67,6 +68,7 @@ class HardenImageProcessorPluginTest extends TestCase
      *
      * @dataProvider allowedExtensionsProvider
      */
+    #[DataProvider('allowedExtensionsProvider')]
     public function testAllAllowedExtensionsPass(string $extension): void
     {
         $imageContent = $this->createMock(ImageContentInterface::class);
@@ -99,6 +101,7 @@ class HardenImageProcessorPluginTest extends TestCase
      *
      * @dataProvider dangerousExtensionsProvider
      */
+    #[DataProvider('dangerousExtensionsProvider')]
     public function testDangerousExtensionsBlocked(string $filename): void
     {
         $imageContent = $this->createMock(ImageContentInterface::class);

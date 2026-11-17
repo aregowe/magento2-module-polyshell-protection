@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Aregowe\PolyShellProtection\Logger;
 
-use Monolog\Logger as MonologLogger;
+use Magento\Framework\Logger\Monolog;
 
-class Logger extends MonologLogger
+class Logger extends Monolog
 {
 }

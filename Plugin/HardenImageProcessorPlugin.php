@@ -147,7 +147,6 @@ class HardenImageProcessorPlugin
             if (self::$uploaderProperty === null) {
                 $reflection = new \ReflectionClass(ImageProcessor::class);
                 self::$uploaderProperty = $reflection->getProperty('uploader');
-                self::$uploaderProperty->setAccessible(true);
             }
             $uploader = self::$uploaderProperty->getValue($subject);
 

@@ -16,6 +16,7 @@ use Magento\Framework\Api\ImageContentValidator;
 use Magento\Framework\Api\ImageProcessor;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Exception\InputException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -86,6 +87,7 @@ class MimeExtensionInferenceValidationTest extends TestCase
     /**
      * @dataProvider validMimeTypeProvider
      */
+    #[DataProvider('validMimeTypeProvider')]
     public function testValidatorPluginExtensionlessWithValidMimePasses(
         string $filename,
         string $mimeType,
@@ -110,6 +112,7 @@ class MimeExtensionInferenceValidationTest extends TestCase
     /**
      * @dataProvider validMimeTypeProvider
      */
+    #[DataProvider('validMimeTypeProvider')]
     public function testProcessorPluginExtensionlessWithValidMimePasses(
         string $filename,
         string $mimeType,
@@ -183,6 +186,7 @@ class MimeExtensionInferenceValidationTest extends TestCase
     /**
      * @dataProvider invalidMimeForExtensionlessProvider
      */
+    #[DataProvider('invalidMimeForExtensionlessProvider')]
     public function testValidatorPluginExtensionlessWithInvalidMimeBlocked(
         string $filename,
         ?string $mimeType
@@ -205,6 +209,7 @@ class MimeExtensionInferenceValidationTest extends TestCase
     /**
      * @dataProvider invalidMimeForExtensionlessProvider
      */
+    #[DataProvider('invalidMimeForExtensionlessProvider')]
     public function testProcessorPluginExtensionlessWithInvalidMimeBlocked(
         string $filename,
         ?string $mimeType
@@ -247,6 +252,7 @@ class MimeExtensionInferenceValidationTest extends TestCase
     /**
      * @dataProvider dangerousExtensionProvider
      */
+    #[DataProvider('dangerousExtensionProvider')]
     public function testValidatorPluginDangerousExtensionsBlocked(
         string $filename,
         string $expectedMessageFragment
@@ -267,6 +273,7 @@ class MimeExtensionInferenceValidationTest extends TestCase
     /**
      * @dataProvider dangerousExtensionProvider
      */
+    #[DataProvider('dangerousExtensionProvider')]
     public function testProcessorPluginDangerousExtensionsBlocked(
         string $filename,
         string $expectedMessageFragment
@@ -307,6 +314,7 @@ class MimeExtensionInferenceValidationTest extends TestCase
     /**
      * @dataProvider doubleExtensionAttackProvider
      */
+    #[DataProvider('doubleExtensionAttackProvider')]
     public function testValidatorPluginDoubleExtensionBlocked(string $filename): void
     {
         $imageContent = $this->createImageContentMock(
@@ -324,6 +332,7 @@ class MimeExtensionInferenceValidationTest extends TestCase
     /**
      * @dataProvider doubleExtensionAttackProvider
      */
+    #[DataProvider('doubleExtensionAttackProvider')]
     public function testProcessorPluginDoubleExtensionBlocked(string $filename): void
     {
         $imageContent = $this->createImageContentMock(
@@ -494,6 +503,7 @@ class MimeExtensionInferenceValidationTest extends TestCase
     /**
      * @dataProvider emptyFilenameProvider
      */
+    #[DataProvider('emptyFilenameProvider')]
     public function testValidatorPluginEmptyFilenameBlocked(?string $filename): void
     {
         $imageContent = $this->createMock(ImageContentInterface::class);
@@ -524,6 +534,7 @@ class MimeExtensionInferenceValidationTest extends TestCase
     /**
      * @dataProvider legitimateUploadProvider
      */
+    #[DataProvider('legitimateUploadProvider')]
     public function testValidatorPluginLegitimateUploadsPass(
         string $filename,
         string $mimeType
@@ -621,6 +632,7 @@ class MimeExtensionInferenceValidationTest extends TestCase
      *
      * @dataProvider unsafeInferredFilenameProvider
      */
+    #[DataProvider('unsafeInferredFilenameProvider')]
     public function testValidatorPluginExtensionlessWithUnsafeFilenameBlocked(
         string $filename
     ): void {
@@ -641,6 +653,7 @@ class MimeExtensionInferenceValidationTest extends TestCase
     /**
      * @dataProvider unsafeInferredFilenameProvider
      */
+    #[DataProvider('unsafeInferredFilenameProvider')]
     public function testProcessorPluginExtensionlessWithUnsafeFilenameBlocked(
         string $filename
     ): void {
@@ -683,6 +696,7 @@ class MimeExtensionInferenceValidationTest extends TestCase
      *
      * @dataProvider normalizedControlCharFilenameProvider
      */
+    #[DataProvider('normalizedControlCharFilenameProvider')]
     public function testValidatorPluginExtensionlessWithNormalizedControlCharPasses(
         string $filename,
         string $expectedRenamedFilename
@@ -705,6 +719,7 @@ class MimeExtensionInferenceValidationTest extends TestCase
     /**
      * @dataProvider normalizedControlCharFilenameProvider
      */
+    #[DataProvider('normalizedControlCharFilenameProvider')]
     public function testProcessorPluginExtensionlessWithNormalizedControlCharPasses(
         string $filename,
         string $expectedRenamedFilename
