@@ -6,6 +6,7 @@ namespace Aregowe\PolyShellProtection\Test\Unit\Plugin;
 
 use Magento\Customer\Model\FileProcessor;
 use Magento\Framework\Exception\LocalizedException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Aregowe\PolyShellProtection\Logger\Logger;
@@ -36,6 +37,7 @@ class BlockCustomerFileUploadPluginTest extends TestCase
     /**
      * @dataProvider blockedEntityTypeProvider
      */
+    #[DataProvider('blockedEntityTypeProvider')]
     public function testSaveTemporaryFileBlockedForDangerousEntityTypes(string $entityType): void
     {
         $subject = $this->createFileProcessorWithEntityType($entityType);
@@ -56,6 +58,7 @@ class BlockCustomerFileUploadPluginTest extends TestCase
     /**
      * @dataProvider blockedEntityTypeProvider
      */
+    #[DataProvider('blockedEntityTypeProvider')]
     public function testMoveTemporaryFileBlockedForDangerousEntityTypes(string $entityType): void
     {
         $subject = $this->createFileProcessorWithEntityType($entityType);

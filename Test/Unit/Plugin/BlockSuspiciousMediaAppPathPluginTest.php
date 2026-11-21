@@ -70,7 +70,7 @@ class BlockSuspiciousMediaAppPathPluginTest extends TestCase
             $reflection = new \ReflectionClass(Media::class);
             if ($reflection->hasProperty('relativeFileName')) {
                 $prop = $reflection->getProperty('relativeFileName');
-                    $prop->setValue($media, 'custom_options/quote/shell.php');
+                $prop->setValue($media, 'custom_options/quote/shell.php');
             }
         } catch (\ReflectionException $e) {
             $this->markTestSkipped('Cannot set relativeFileName on Media mock: ' . $e->getMessage());
