@@ -17,6 +17,8 @@ use Aregowe\PolyShellProtection\Plugin\HardenImageProcessorPlugin;
 
 class HardenImageProcessorPluginTest extends TestCase
 {
+    use ThrowsOnDeprecationTrait;
+
     private HardenImageProcessorPlugin $plugin;
 
     /** @var Logger|\PHPUnit\Framework\MockObject\MockObject */
@@ -27,6 +29,7 @@ class HardenImageProcessorPluginTest extends TestCase
 
     protected function setUp(): void
     {
+        $this->throwOnDeprecation(\Aregowe\PolyShellProtection\Plugin\HardenImageProcessorPlugin::class, 'uploaderProperty');
         $this->polyglotDetector = $this->createMock(PolyglotFileDetector::class);
         $this->logger = $this->getMockBuilder(Logger::class)->disableOriginalConstructor()->getMock();
         $fileUploadGuard = $this->createMock(FileUploadGuard::class);

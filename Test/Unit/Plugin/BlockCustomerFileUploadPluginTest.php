@@ -15,6 +15,8 @@ use Aregowe\PolyShellProtection\Plugin\BlockCustomerFileUploadPlugin;
 
 class BlockCustomerFileUploadPluginTest extends TestCase
 {
+    use ThrowsOnDeprecationTrait;
+
     private BlockCustomerFileUploadPlugin $plugin;
 
     /** @var Logger&MockObject */
@@ -22,6 +24,7 @@ class BlockCustomerFileUploadPluginTest extends TestCase
 
     protected function setUp(): void
     {
+        $this->throwOnDeprecation(\Aregowe\PolyShellProtection\Plugin\BlockCustomerFileUploadPlugin::class, 'entityTypeCodeProperty');
         $this->logger = $this->createMock(Logger::class);
         $sanitizer = new SecurityLogSanitizer();
 
