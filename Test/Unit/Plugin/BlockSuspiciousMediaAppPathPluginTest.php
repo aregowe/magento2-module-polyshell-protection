@@ -16,6 +16,8 @@ use Aregowe\PolyShellProtection\Plugin\BlockSuspiciousMediaAppPathPlugin;
 
 class BlockSuspiciousMediaAppPathPluginTest extends TestCase
 {
+    use ThrowsOnDeprecationTrait;
+
     /** @var Logger|\PHPUnit\Framework\MockObject\MockObject */
     private Logger $logger;
 
@@ -26,6 +28,7 @@ class BlockSuspiciousMediaAppPathPluginTest extends TestCase
 
     protected function setUp(): void
     {
+        $this->throwOnDeprecation();
         $this->logger = $this->getMockBuilder(Logger::class)->disableOriginalConstructor()->getMock();
         $remoteAddress = $this->createMock(RemoteAddress::class);
         $remoteAddress->method('getRemoteAddress')->willReturn('127.0.0.1');
@@ -67,8 +70,7 @@ class BlockSuspiciousMediaAppPathPluginTest extends TestCase
             $reflection = new \ReflectionClass(Media::class);
             if ($reflection->hasProperty('relativeFileName')) {
                 $prop = $reflection->getProperty('relativeFileName');
-                $prop->setAccessible(true);
-                $prop->setValue($media, 'custom_options/quote/shell.php');
+                    $prop->setValue($media, 'custom_options/quote/shell.php');
             }
         } catch (\ReflectionException $e) {
             $this->markTestSkipped('Cannot set relativeFileName on Media mock: ' . $e->getMessage());

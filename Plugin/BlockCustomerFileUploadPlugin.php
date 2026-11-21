@@ -121,7 +121,6 @@ class BlockCustomerFileUploadPlugin
             if (self::$entityTypeCodeProperty === null) {
                 $reflection = new \ReflectionClass(FileProcessor::class);
                 self::$entityTypeCodeProperty = $reflection->getProperty('entityTypeCode');
-                self::$entityTypeCodeProperty->setAccessible(true);
             }
             return (string) self::$entityTypeCodeProperty->getValue($subject);
         } catch (\ReflectionException $e) {

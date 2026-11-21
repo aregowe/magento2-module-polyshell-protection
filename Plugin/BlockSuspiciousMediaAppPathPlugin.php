@@ -75,7 +75,6 @@ class BlockSuspiciousMediaAppPathPlugin
                     return '';
                 }
                 $this->relativeFileNameProperty = $reflection->getProperty('relativeFileName');
-                $this->relativeFileNameProperty->setAccessible(true);
             }
 
             $value = $this->relativeFileNameProperty->getValue($mediaApp);
